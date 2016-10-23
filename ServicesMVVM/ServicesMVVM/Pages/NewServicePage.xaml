@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ServicesMVVM.Pages.NewServicePage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Nuevo Servicio"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  
+  <ScrollView BindingContext="{Binding NewService}">
+    <StackLayout Padding="8">
+      <Picker 
+              Title="Selecciona un producto: "
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="Center"/>
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Cantidad: "
+               HorizontalOptions="Start"
+               VerticalOptions="Center"/>
+        <Entry 
+               IsEnabled="False"
+               Text="1"
+               FontAttributes="Bold"
+               FontSize="20"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center"/>
+        <Stepper 
+                 Value="1"
+                 Increment="1"
+                 Minimum="1"
+                 Maximum="999999"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"/>
+      </StackLayout>
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Fecha: "
+               HorizontalOptions="Start"
+               VerticalOptions="Center"/>
+        <DatePicker 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"/>
+      </StackLayout>
+      <Button
+              Style="{StaticResource GeneralButton}"
+              Text="Agregar"/>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

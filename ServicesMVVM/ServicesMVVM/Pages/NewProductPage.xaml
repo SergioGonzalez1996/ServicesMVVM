@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ServicesMVVM.Pages.NewProductPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Nuevo Producto"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  <ScrollView BindingContext="{Binding NewProduct}">
+    <StackLayout Padding="8">
+      <Label
+        TextColor="{StaticResource FontColor}"
+        Text="Descripción"/>
+      <Entry
+        TextColor="{StaticResource FontColor}"
+        Text="{Binding Description, Mode=TwoWay}"
+        BackgroundColor="{StaticResource BackgroundColor}"/>
+      <Label
+        TextColor="{StaticResource FontColor}"
+        Text="Precio"/>
+      <Entry
+        TextColor="{StaticResource FontColor}"
+        Text="{Binding Price, Mode=TwoWay}"
+        Keyboard="Numeric"
+        BackgroundColor="{StaticResource BackgroundColor}"/>
+      <Button
+        Style="{StaticResource GeneralButton}"
+        Command="{Binding SaveCommand}"
+        Text="Guardar" />
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

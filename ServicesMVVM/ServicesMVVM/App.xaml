@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:infra="clr-namespace:ServicesMVVM.Infrastructure;assembly=ServicesMVVM"
+             x:Class="ServicesMVVM.App">
+  <Application.Resources>
+    <ResourceDictionary>
+      <!-- General colors -->
+      <Color x:Key="MainColor">#FF8598</Color>
+      <Color x:Key="FontColor">#7D8A2E</Color>
+      <Color x:Key="AccentColor1">#C9D787</Color>
+      <Color x:Key="AccentColor2">#FFC0A9</Color>
+      <Color x:Key="BackgroundColor">#FFFFFF</Color>
+      <!-- Menu colors -->
+      <Color x:Key="MenuColor">#7D8A2E</Color>
+      <Color x:Key="MenuFontColor">#FFFFFF</Color>
+      <!-- Locator -->
+      <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+      <!-- Fonts -->
+      <OnPlatform x:Key="GeneralButtonFont" x:TypeArguments="Font" iOS="12" Android="14" WinPhone="16"/>
+      <!-- Styles -->
+      <Style x:Key="GeneralButton" TargetType="Button">
+        <Setter Property="Font" Value="{StaticResource GeneralButtonFont}"/>
+        <Setter Property="BorderRadius" Value="25"/>
+        <Setter Property="HeightRequest" Value="50"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor1}"/>
+        <Setter Property="TextColor" Value="{StaticResource MenuFontColor}"/>
+        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+      </Style>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

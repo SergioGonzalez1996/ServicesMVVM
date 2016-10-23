@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ServicesMVVM.Pages.MainPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Servicios"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  <ListView
+      ItemsSource="{Binding Services}"
+      HasUnevenRows="True">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <Grid Padding="8">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"></ColumnDefinition>
+              <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" Grid.Column="1">
+              <Label
+                HorizontalTextAlignment="Start"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding DateRegistered, StringFormat='{0:yyyy/MM/dd}'}"/>
+              <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                HorizontalTextAlignment="Start"
+                HorizontalOptions="StartAndExpand"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding ProductId}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Grid.Column="2">
+              <Label
+                HorizontalTextAlignment="Start"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding Quantity, StringFormat='{0:N2}'}"/>
+              <Label
+                HorizontalTextAlignment="End"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding Value, StringFormat='${0:N2}'}"/>
+            </StackLayout>
+          </Grid>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="ic_action_add.png" Command="{Binding GoToCommand}" CommandParameter="NewServicePage"/>
+  </ContentPage.ToolbarItems>
+</ContentPage>
