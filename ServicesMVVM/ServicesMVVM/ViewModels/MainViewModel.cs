@@ -20,6 +20,7 @@ namespace ServicesMVVM.ViewModels
         public ObservableCollection<ProductsViewModel> Products { get; set; }
         public ProductsViewModel NewProduct { get; private set; }
         public ServicesViewModel NewService { get; private set; }
+        public QueriesViewModel NewQuery { get; private set; }
         #endregion
 
         #region Constructors
@@ -79,6 +80,7 @@ namespace ServicesMVVM.ViewModels
                     });
                 }
             }
+            NewQuery = new QueriesViewModel();
             navigationService.SetMainPage();
         }
         #endregion

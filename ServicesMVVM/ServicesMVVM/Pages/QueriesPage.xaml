@@ -2,23 +2,79 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ServicesMVVM.Pages.QueriesPage"
-             Title="Consultas">
-  <ScrollView>
-    <StackLayout Padding="15" Spacing="10">
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Consultas"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  
+  <ScrollView BindingContext="{Binding NewQuery}">
+    <StackLayout Padding="8">
       <StackLayout Orientation="Horizontal">
         <Label Text="Fecha: "
+               TextColor="{StaticResource FontColor}"
                HorizontalOptions="Start"
                VerticalOptions="Center"/>
-        <DatePicker 
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Center"/>
+        <DatePicker
+          Date="{Binding DateQuery, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="Center"
+          BackgroundColor="{StaticResource BackgroundColor}">
+          <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+        </DatePicker>
+        <Button
+          Style="{StaticResource GeneralButton}"
+          Command="{Binding QueryCommand}"
+          Text="Consultar" 
+          HorizontalOptions="End"
+          VerticalOptions="Center"/>
       </StackLayout>
 
+      <ListView
+      ItemsSource="{Binding Queries}"
+      HasUnevenRows="True">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid Padding="8">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" Grid.Column="1">
+                  <Label
+                    HorizontalTextAlignment="Start"
+                    TextColor="{StaticResource FontColor}"
+                    Text="{Binding DateRegistered, StringFormat='{0:yyyy/MM/dd}'}"/>
+                  <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalTextAlignment="Start"
+                    HorizontalOptions="StartAndExpand"
+                    TextColor="{StaticResource FontColor}"
+                    Text="{Binding ProductDescription}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Grid.Column="2">
+                  <Label
+                    HorizontalTextAlignment="Start"
+                    TextColor="{StaticResource FontColor}"
+                    Text="{Binding Quantity, StringFormat='{0:N2}'}"/>
+                  <Label
+                    HorizontalTextAlignment="End"
+                    TextColor="{StaticResource FontColor}"
+                    Text="{Binding Value, StringFormat='${0:N2}'}"/>
+                </StackLayout>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+       
       <StackLayout Orientation="Horizontal">
         <Label Text="Total: "
+               TextColor="{StaticResource FontColor}"
                HorizontalOptions="Start"
                VerticalOptions="Center"/>
         <Entry
+               Text="{Binding Total, Mode=TwoWay, StringFormat='${0:N2}'}"
                IsEnabled="False"
                FontSize="20"
                FontAttributes="Bold"
