@@ -5,6 +5,7 @@
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="Nuevo Producto"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  
   <ScrollView BindingContext="{Binding NewProduct}">
     <StackLayout Padding="8">
       <Label
@@ -13,6 +14,7 @@
       <Entry
         TextColor="{StaticResource FontColor}"
         Text="{Binding Description, Mode=TwoWay}"
+        Placeholder="Ingresa una descripción"
         BackgroundColor="{StaticResource BackgroundColor}"/>
       <Label
         TextColor="{StaticResource FontColor}"
@@ -20,6 +22,7 @@
       <Entry
         TextColor="{StaticResource FontColor}"
         Text="{Binding Price, Mode=TwoWay}"
+        Placeholder="Ingresa el Precio"
         Keyboard="Numeric"
         BackgroundColor="{StaticResource BackgroundColor}"/>
       <Button

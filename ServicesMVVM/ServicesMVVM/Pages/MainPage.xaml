@@ -27,7 +27,7 @@
                 HorizontalTextAlignment="Start"
                 HorizontalOptions="StartAndExpand"
                 TextColor="{StaticResource FontColor}"
-                Text="{Binding ProductId}"/>
+                Text="{Binding ProductDescription}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="End" Grid.Column="2">
               <Label

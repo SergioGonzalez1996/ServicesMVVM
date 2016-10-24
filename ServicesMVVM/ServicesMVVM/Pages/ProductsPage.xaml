@@ -2,8 +2,52 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ServicesMVVM.Pages.ProductsPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
              Title="Productos"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  <ListView
+      ItemsSource="{Binding Products}"
+      HasUnevenRows="True">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <Grid Padding="8">
+            
+            <Grid.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding EditCommand}" CommandParameter="EditProductsPage"/>
+            </Grid.GestureRecognizers>
+            
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"></ColumnDefinition>
+              <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" Grid.Column="1">
+              <Label
+                HorizontalTextAlignment="Start"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding ProductId}"/>
+              <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                HorizontalTextAlignment="Start"
+                HorizontalOptions="StartAndExpand"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding Description}"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Grid.Column="2">
+              <Label
+                HorizontalTextAlignment="End"
+                TextColor="{StaticResource FontColor}"
+                Text="{Binding Price, StringFormat='${0:N2}'}"/>
+            </StackLayout>
+            
+          </Grid>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
 
   <ContentPage.ToolbarItems>
     <ToolbarItem Icon="ic_action_add.png" Command="{Binding GoToCommand}" CommandParameter="NewProductPage"/>

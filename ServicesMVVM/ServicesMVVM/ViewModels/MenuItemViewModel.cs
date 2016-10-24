@@ -1,11 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using ServicesMVVM.Pages;
 using ServicesMVVM.Services;
 using System.Windows.Input;
 
 namespace ServicesMVVM.ViewModels
 {
-    class MenuItemViewModel
+    public class MenuItemViewModel
     {
         private NavigationService navigationService;
 

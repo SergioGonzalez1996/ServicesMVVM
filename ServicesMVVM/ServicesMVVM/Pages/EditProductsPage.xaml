@@ -1,42 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ServicesMVVM.Pages.NewServicePage"
+             x:Class="ServicesMVVM.Pages.EditProductsPage"
              BackgroundColor="{StaticResource BackgroundColor}"
-             Title="Nuevo Servicio"
+             Title="Editar un Producto"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
-  <ScrollView BindingContext="{Binding NewService}">
+
+  <ScrollView BindingContext="{Binding Products}">
     <StackLayout Padding="8">
       <Label
         TextColor="{StaticResource FontColor}"
-        Text="Ingrese la ID del Producto"/>
+        Text="Descripción"/>
       <Entry
         TextColor="{StaticResource FontColor}"
-        Text="{Binding ProductId, Mode=TwoWay}"
-        Placeholder="ID del Producto"
-        Keyboard="Numeric"
+        Text="{Binding Description, Mode=TwoWay}"
+        Placeholder="Ingresa una descripción"
         BackgroundColor="{StaticResource BackgroundColor}"/>
       <Label
         TextColor="{StaticResource FontColor}"
-        Text="Cantidad"/>
+        Text="Precio"/>
       <Entry
         TextColor="{StaticResource FontColor}"
-        Text="{Binding Quantity, Mode=TwoWay}"
+        Text="{Binding Price, Mode=TwoWay}"
         Keyboard="Numeric"
-        Placeholder="Ingresa la Cantidad"
         BackgroundColor="{StaticResource BackgroundColor}"/>
-      <Label
-        TextColor="{StaticResource FontColor}"
-        Text="Fecha"/>
-      <DatePicker
-        Date="{Binding DateService, Mode=TwoWay}"
-        BackgroundColor="{StaticResource BackgroundColor}">
-        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
-      </DatePicker>
       <Button
         Style="{StaticResource GeneralButton}"
-        Command="{Binding SaveCommand}"
-        Text="Guardar" />
+        Command="{Binding UpdateCommand}"
+        Text="Actualizar"/>
+      <Button
+        Style="{StaticResource GeneralButton}"
+        Command="{Binding DeleteCommand}"
+        Text="Eliminar"/>
     </StackLayout>
   </ScrollView>
+  
 </ContentPage>
