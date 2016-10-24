@@ -46,6 +46,9 @@
     <Compile Include="Pages\EditProductsPage.xaml.cs">
       <DependentUpon>EditProductsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\EditServicesPage.xaml.cs">
+      <DependentUpon>EditServicesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -177,6 +180,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\EditProductsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\EditServicesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

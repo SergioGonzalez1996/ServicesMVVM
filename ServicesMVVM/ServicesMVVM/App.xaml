@@ -28,6 +28,7 @@
         <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
         <Setter Property="VerticalOptions" Value="Center"/>
       </Style>
+    
     </ResourceDictionary>
   </Application.Resources>
 </Application>

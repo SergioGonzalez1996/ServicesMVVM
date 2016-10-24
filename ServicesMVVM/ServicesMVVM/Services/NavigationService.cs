@@ -26,6 +26,9 @@ namespace ServicesMVVM.Services
                 case "EditProductsPage":
                     await App.Navigator.PushAsync(new EditProductsPage());
                     break;
+                case "EditServicesPage":
+                    await App.Navigator.PushAsync(new EditServicesPage());
+                    break;
                 case "MainPage":
                     await App.Navigator.PopToRootAsync();
                     break;

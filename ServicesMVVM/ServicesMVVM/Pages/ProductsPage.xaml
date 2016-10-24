@@ -7,21 +7,19 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
   <ListView
       ItemsSource="{Binding Products}"
+      SelectedItem ="{Binding ProductId}"
       HasUnevenRows="True">
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
           <Grid Padding="8">
-            
             <Grid.GestureRecognizers>
-              <TapGestureRecognizer Command="{Binding EditCommand}" CommandParameter="EditProductsPage"/>
+              <TapGestureRecognizer Command="{Binding EditCommand}"/>
             </Grid.GestureRecognizers>
-            
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto"></ColumnDefinition>
               <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
             <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" Grid.Column="1">
               <Label
                 HorizontalTextAlignment="Start"
@@ -42,7 +40,6 @@
                 TextColor="{StaticResource FontColor}"
                 Text="{Binding Price, StringFormat='${0:N2}'}"/>
             </StackLayout>
-            
           </Grid>
         </ViewCell>
       </DataTemplate>

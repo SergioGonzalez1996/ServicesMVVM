@@ -3,10 +3,11 @@ using ServicesMVVM.Models;
 using ServicesMVVM.Services;
 using System;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace ServicesMVVM.ViewModels
 {
-    public class ProductsViewModel
+    public class ProductsViewModel : INotifyPropertyChanged
     {
         #region Attributes
         private DialogService dialogService;
@@ -14,6 +15,10 @@ namespace ServicesMVVM.ViewModels
         #endregion
 
         #region Properties
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ProductsViewModel EditProduct { get; private set; }
+
         public int ProductId { get; set; }
 
         public string Description { get; set; }
@@ -27,6 +32,7 @@ namespace ServicesMVVM.ViewModels
         {
             dialogService = new DialogService();
             navigationService = new NavigationService();
+            //EditProducts = new EditProductsViewModel(10, "test2", 0);
         }
         #endregion
 
@@ -47,6 +53,17 @@ namespace ServicesMVVM.ViewModels
                     await dialogService.ShowMessage("Error", "Debes ingresar un precio positivo.");
                     return;
                 }
+                using (var daa = new DataAccess())
+                {
+                    /*
+                    var checkDescription = daa.First<Product>(false).Where(p => p.Description == Description).FirstOrDefault();
+                    if (checkDescription != null)
+                    {
+                        await dialogService.ShowMessage("Error", "Ya hay existe producto con descripción " + Description + ".");
+                        return;
+                    }
+                    */
+                }
 
                 var product = new Product
                 {
@@ -60,6 +77,10 @@ namespace ServicesMVVM.ViewModels
                     da.Insert(product);
                 }
 
+                Description = "";
+                Price = 0;
+                OnPropertyChanged("Description");
+                OnPropertyChanged("Price");
 
                 await dialogService.ShowMessage("Información", "El producto ha sido creado");
             }
@@ -69,10 +90,34 @@ namespace ServicesMVVM.ViewModels
             }
         }
 
-        public ICommand EditCommand { get { return new RelayCommand<string>(Edit); } }
-        private void Edit(string pageName)
+        public ICommand EditCommand { get { return new RelayCommand(Edit); } }
+        private void Edit()
         {
-            navigationService.Navigate(pageName);
+
+            //await dialogService.ShowMessage("Informacion", "Producto: " + ProductId + " / " + Description + " / " + Price);
+            //EditProduct = new EditProductsViewModel(ProductId, Description, Price);
+            EditProduct = new ProductsViewModel();
+            //NewProduct = new EditProductsViewModel();
+            EditProduct.ProductId = ProductId;
+            EditProduct.Description = "adasdasd";
+            EditProduct.Price = 1657981;
+            //await dialogService.ShowMessage("Error", "Producto: " + EditProducts.ProductId + " / " + EditProducts.Description + " / " + EditProducts.Price);
+            //OnPropertyChanged("Description");
+            //OnPropertyChanged("Price");
+
+            navigationService.Navigate("EditProductsPage");
+        }
+        #endregion
+        // TODO: Borrame: Al eliminar un producto DEBE verificar que no tenga NADA relacionado. Si tien erelaciones, sacar error, si no, borrarlo
+
+        #region Methods
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
+            }
         }
         #endregion
     }

@@ -79,6 +79,7 @@ namespace ServicesMVVM.ViewModels
         }
         #endregion
 
+        #region Methods
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -86,6 +87,7 @@ namespace ServicesMVVM.ViewModels
                 PropertyChanged(this,
                     new PropertyChangedEventArgs(propertyName));
             }
-        }
+        } 
+        #endregion
     }
 }

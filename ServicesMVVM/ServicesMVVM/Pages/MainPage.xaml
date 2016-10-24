@@ -7,11 +7,15 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
   <ListView
       ItemsSource="{Binding Services}"
+      SelectedItem ="{Binding ServiceId}"
       HasUnevenRows="True">
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
           <Grid Padding="8">
+            <Grid.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding EditCommand}"/>
+            </Grid.GestureRecognizers>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto"></ColumnDefinition>
               <ColumnDefinition Width="*"></ColumnDefinition>

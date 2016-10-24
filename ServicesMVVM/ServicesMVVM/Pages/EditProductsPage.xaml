@@ -4,9 +4,9 @@
              x:Class="ServicesMVVM.Pages.EditProductsPage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="Editar un Producto"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+             BindingContext="{Binding Products, Source={StaticResource Locator}}">
 
-  <ScrollView BindingContext="{Binding Products}">
+  <ScrollView BindingContext="{Binding EditProduct}">
     <StackLayout Padding="8">
       <Label
         TextColor="{StaticResource FontColor}"
@@ -31,6 +31,7 @@
       <Button
         Style="{StaticResource GeneralButton}"
         Command="{Binding DeleteCommand}"
+        BackgroundColor="{StaticResource AccentColor2}"
         Text="Eliminar"/>
     </StackLayout>
   </ScrollView>

@@ -21,6 +21,7 @@ namespace ServicesMVVM.ViewModels
         public ProductsViewModel NewProduct { get; private set; }
         public ServicesViewModel NewService { get; private set; }
         public QueriesViewModel NewQuery { get; private set; }
+        //public ProductsViewModel EditProduct { get; private set; }
         #endregion
 
         #region Constructors
@@ -64,7 +65,6 @@ namespace ServicesMVVM.ViewModels
                                     s.DateRegistered.Day == DateTime.Today.Day)
                                     .OrderByDescending(s => s.DateService)
                                     .ToList();
-                //Services = new ObservableCollection<ServicesViewModel>();
                 Services.Clear();
                 foreach (var service in services)
                 {
@@ -86,11 +86,23 @@ namespace ServicesMVVM.ViewModels
         #endregion
 
         #region Methods
+        public void ReloadList (string list)
+        {
+            switch (list)
+            {
+                case "Products":
+                    LoadProducts();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
         private void LoadProducts()
         {
             using (var da = new DataAccess())
             {
-                //Products = new ObservableCollection<ProductsViewModel>();
                 Products.Clear();
                 var products = da.GetList<Product>(false).OrderBy(p => p.Description);
                 foreach (var product in products)
@@ -123,5 +135,7 @@ namespace ServicesMVVM.ViewModels
             });
         }
         #endregion
+
+        // Use Debug.WriteLine("Something"); if you need to see something
     }
 }

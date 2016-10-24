@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ServicesMVVM.Pages.NewServicePage"
+             x:Class="ServicesMVVM.Pages.EditServicesPage"
              BackgroundColor="{StaticResource BackgroundColor}"
-             Title="Nuevo Servicio"
+             Title="Editar un Servicio"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
-  <ScrollView BindingContext="{Binding NewService}">
+  <ScrollView BindingContext="{Binding EditService}">
     <StackLayout Padding="8">
       <Label
         TextColor="{StaticResource FontColor}"
@@ -16,7 +16,7 @@
         Placeholder="ID del Producto"
         Keyboard="Numeric"
         BackgroundColor="{StaticResource BackgroundColor}"/>
-      <StackLayout Orientation="Horizontal"> 
+      <StackLayout Orientation="Horizontal">
         <Label
           TextColor="{StaticResource FontColor}"
           HorizontalOptions="StartAndExpand"
@@ -50,9 +50,14 @@
         <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
       </DatePicker>
       <Button
+         Style="{StaticResource GeneralButton}"
+         Command="{Binding UpdateCommand}"
+         Text="Actualizar"/>
+      <Button
         Style="{StaticResource GeneralButton}"
-        Command="{Binding SaveCommand}"
-        Text="Guardar" />
+        Command="{Binding DeleteCommand}"
+        BackgroundColor="{StaticResource AccentColor2}"
+        Text="Eliminar"/> 
     </StackLayout>
   </ScrollView>
 </ContentPage>

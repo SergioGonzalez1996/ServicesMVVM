@@ -2,17 +2,21 @@
 using ServicesMVVM.Models;
 using ServicesMVVM.Services;
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace ServicesMVVM.ViewModels
 {
-    public class ServicesViewModel
+    public class ServicesViewModel : INotifyPropertyChanged
     {
         #region Attributes
         private DialogService dialogService;
+        private NavigationService navigationService;
         #endregion
 
         #region Properties
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public int ServiceId { get; set; }
 
         public DateTime DateService { get; set; }
@@ -33,15 +37,23 @@ namespace ServicesMVVM.ViewModels
         #region Constructors
         public ServicesViewModel()
         {
+            navigationService = new NavigationService();
             dialogService = new DialogService();
-            DateRegistered = DateTime.Today; 
-            DateService = DateTime.Today;  
+            DateRegistered = DateTime.Today; // Always will be Today
+            DateService = DateTime.Today; // The view date picker
+            OnPropertyChanged("Quantity");
         }
         #endregion
 
         #region Commands
-        public ICommand SaveCommand { get { return new RelayCommand(Save); } }
+        public ICommand ValueChangedCommand { get { return new RelayCommand(ValueChanged); } }
+        private void ValueChanged()
+        {
+            Quantity = Quantity + 1;
+            OnPropertyChanged("Quantity");
+        }
 
+        public ICommand SaveCommand { get { return new RelayCommand(Save); } }
         private async void Save()
         {
             try
@@ -55,7 +67,7 @@ namespace ServicesMVVM.ViewModels
                 using (var daa = new DataAccess())
                 {
                     var thisProduct = daa.Find<Product>(ProductId, false);
-                    if (string.IsNullOrEmpty(thisProduct.Description) || !(thisProduct.ProductId == ProductId))
+                    if (thisProduct == null)
                     {
                         await dialogService.ShowMessage("Error", "El Producto ID " + ProductId + " no existe.");
                         return;
@@ -82,6 +94,23 @@ namespace ServicesMVVM.ViewModels
             catch (Exception ex)
             {
                 await dialogService.ShowMessage("Error", "Ha ocurrido un error inesperado: " + ex.Message);
+            }
+        }
+
+        public ICommand EditCommand { get { return new RelayCommand(Edit); } }
+        private void Edit()
+        {
+            navigationService.Navigate("EditServicesPage");
+        }
+        #endregion
+
+        #region Methods
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this,
+                    new PropertyChangedEventArgs(propertyName));
             }
         }
         #endregion
