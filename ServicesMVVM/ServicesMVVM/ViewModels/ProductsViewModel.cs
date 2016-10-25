@@ -2,6 +2,7 @@
 using ServicesMVVM.Models;
 using ServicesMVVM.Services;
 using System;
+using System.Linq;
 using System.Windows.Input;
 using System.ComponentModel;
 
@@ -56,13 +57,13 @@ namespace ServicesMVVM.ViewModels
                 {
                     /*
                      // I'm getting a error on Where, I don't know how to fix it, need help
-                    var checkDescription = daa.First<Product>(false).Where(p => p.Description == Description).FirstOrDefault();
+                    var checkDescription = daa.First<Product>(false).Where(p => p.Description == Description); // Adding a .FirstOrDefault(); doesn't work
                     if (checkDescription != null)
                     {
                         await dialogService.ShowMessage("Error", "Ya hay existe producto con descripción " + Description + ".");
                         return;
                     }
-                    */
+                    */ 
                 }
 
                 var product = new Product
@@ -86,13 +87,9 @@ namespace ServicesMVVM.ViewModels
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("Index"))
+                if (ex.Message.Contains("Constraint"))
                 {
-                    await dialogService.ShowMessage("Error", "Ya existe un producto con esta descripción");
-                }
-                else if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("REFERENCE"))
-                {
-                    await dialogService.ShowMessage("Error", "Imposible eliminar el producto porque tiene registros relacionados.");
+                    await dialogService.ShowMessage("Error", "Ya existe un producto con esta descripción.");
                 }
                 else
                 {
@@ -133,13 +130,4 @@ namespace ServicesMVVM.ViewModels
         }
         #endregion
     }
-
-    /*
-     <Entry
-        TextColor="{StaticResource FontColor}"
-        Text="{Binding ProductId, Mode=TwoWay}"
-        Placeholder="ID del Producto"
-        Keyboard="Numeric"
-        BackgroundColor="{StaticResource BackgroundColor}"/>
-    */
 }

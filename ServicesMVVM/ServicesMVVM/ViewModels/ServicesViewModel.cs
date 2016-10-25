@@ -4,6 +4,7 @@ using ServicesMVVM.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -31,11 +32,29 @@ namespace ServicesMVVM.ViewModels
 
         public string ProductDescription { get; set; }
 
-        public double Quantity { get; set; }
+        //public double Quantity { get; set; }
 
         public decimal Price { get; set; }
 
         public decimal Value { get { return Price * (decimal)Quantity; } }
+
+        double quantity;
+
+        public double Quantity
+        {
+            set
+            {
+                if (quantity != value)
+                {
+                    quantity = value;
+                    OnPropertyChanged("Quantity");
+                }
+            }
+            get
+            {
+                return quantity;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -59,13 +78,6 @@ namespace ServicesMVVM.ViewModels
         #endregion
 
         #region Commands
-        public ICommand ValueChangedCommand { get { return new RelayCommand(ValueChanged); } }
-        private void ValueChanged()
-        {
-            Quantity = Quantity + 1;
-            OnPropertyChanged("Quantity");
-        }
-
         public ICommand SaveCommand { get { return new RelayCommand(Save); } }
         private async void Save()
         {

@@ -34,9 +34,6 @@
           HorizontalOptions="FillAndExpand"
           BackgroundColor="{StaticResource BackgroundColor}"/>
         <Stepper>
-          <Stepper.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding ValueChangedCommand}"/>
-          </Stepper.GestureRecognizers>
           Value="{Binding Quantity, Mode=TwoWay}"
           Increment="1"
           Minimum="1"

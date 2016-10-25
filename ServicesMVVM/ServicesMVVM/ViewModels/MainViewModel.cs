@@ -57,6 +57,33 @@ namespace ServicesMVVM.ViewModels
         public ICommand StartCommand { get { return new RelayCommand(Start); } }
         private void Start()
         {
+            LoadServices();
+            NewQuery = new QueriesViewModel();
+            navigationService.SetMainPage();
+        }
+        #endregion
+
+        #region Methods
+        private void LoadProducts()
+        {
+            using (var da = new DataAccess())
+            {
+                Products.Clear();
+                var products = da.GetList<Product>(false).OrderBy(p => p.Description);
+                foreach (var product in products)
+                {
+                    Products.Add(new ProductsViewModel
+                    {
+                        ProductId = product.ProductId,
+                        Description = product.Description,
+                        Price = product.Price,
+                    });
+                }
+            }
+        }
+
+        private void LoadServices()
+        {
             using (var da = new DataAccess())
             {
                 var services = da.GetList<Service>(true)
@@ -80,41 +107,6 @@ namespace ServicesMVVM.ViewModels
                     });
                 }
             }
-            NewQuery = new QueriesViewModel();
-            navigationService.SetMainPage();
-        }
-        #endregion
-
-        #region Methods
-        public void ReloadList (string list)
-        {
-            switch (list)
-            {
-                case "Products":
-                    LoadProducts();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-
-        private void LoadProducts()
-        {
-            using (var da = new DataAccess())
-            {
-                Products.Clear();
-                var products = da.GetList<Product>(false).OrderBy(p => p.Description);
-                foreach (var product in products)
-                {
-                    Products.Add(new ProductsViewModel
-                    {
-                        ProductId = product.ProductId,
-                        Description = product.Description,
-                        Price = product.Price,
-                    });
-                }
-            }
         }
 
 
@@ -135,6 +127,13 @@ namespace ServicesMVVM.ViewModels
             });
         }
         #endregion
+
+
+        public void ReloadList()
+        {
+            LoadServices();
+            LoadProducts();
+        }
 
         // Use Debug.WriteLine("Something"); if you need to see something
     }
