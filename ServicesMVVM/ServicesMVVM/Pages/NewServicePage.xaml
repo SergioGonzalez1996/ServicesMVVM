@@ -1,21 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ServicesMVVM.Services;assembly=ServicesMVVM"
              x:Class="ServicesMVVM.Pages.NewServicePage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="Nuevo Servicio"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
+  
   <ScrollView BindingContext="{Binding NewService}">
     <StackLayout Padding="8">
       <Label
         TextColor="{StaticResource FontColor}"
-        Text="Ingrese la ID del Producto"/>
-      <Entry
-        TextColor="{StaticResource FontColor}"
-        Text="{Binding ProductId, Mode=TwoWay}"
-        Placeholder="ID del Producto"
-        Keyboard="Numeric"
-        BackgroundColor="{StaticResource BackgroundColor}"/>
+        Text="Ingrese el producto."/>  
+      <controls:BindablePicker Grid.Column="1"
+                            Title="Selecciona un Producto"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                            DisplayMemberPath="Description"
+                            SelectedValuePath="ProductId"
+                            ItemsSource="{Binding AllProducts}"
+                            SelectedValue="{Binding Path=Product.ProductId, Mode=TwoWay}" />
+      
       <StackLayout Orientation="Horizontal"> 
         <Label
           TextColor="{StaticResource FontColor}"

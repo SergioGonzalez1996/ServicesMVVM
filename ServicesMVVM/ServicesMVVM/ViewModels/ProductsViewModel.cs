@@ -17,7 +17,7 @@ namespace ServicesMVVM.ViewModels
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ProductsViewModel EditProduct { get; private set; }
+        //public ProductsViewModel EditProduct { get; private set; }
 
         public int ProductId { get; set; }
 
@@ -32,7 +32,6 @@ namespace ServicesMVVM.ViewModels
         {
             dialogService = new DialogService();
             navigationService = new NavigationService();
-            //EditProducts = new EditProductsViewModel(10, "test2", 0);
         }
         #endregion
 
@@ -56,6 +55,7 @@ namespace ServicesMVVM.ViewModels
                 using (var daa = new DataAccess())
                 {
                     /*
+                     // I'm getting a error on Where, I don't know how to fix it, need help
                     var checkDescription = daa.First<Product>(false).Where(p => p.Description == Description).FirstOrDefault();
                     if (checkDescription != null)
                     {
@@ -86,7 +86,18 @@ namespace ServicesMVVM.ViewModels
             }
             catch (Exception ex)
             {
-                await dialogService.ShowMessage("Error", "Ha ocurrido un error inesperado: " + ex.Message);
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("Index"))
+                {
+                    await dialogService.ShowMessage("Error", "Ya existe un producto con esta descripción");
+                }
+                else if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("REFERENCE"))
+                {
+                    await dialogService.ShowMessage("Error", "Imposible eliminar el producto porque tiene registros relacionados.");
+                }
+                else
+                {
+                    await dialogService.ShowMessage("Error", "Ha ocurrido un error inesperado: " + ex.Message);
+                }
             }
         }
 
@@ -96,19 +107,20 @@ namespace ServicesMVVM.ViewModels
 
             //await dialogService.ShowMessage("Informacion", "Producto: " + ProductId + " / " + Description + " / " + Price);
             //EditProduct = new EditProductsViewModel(ProductId, Description, Price);
-            EditProduct = new ProductsViewModel();
+            //EditProduct = new ProductsViewModel();
             //NewProduct = new EditProductsViewModel();
-            EditProduct.ProductId = ProductId;
-            EditProduct.Description = "adasdasd";
-            EditProduct.Price = 1657981;
+            //EditProduct.ProductId = ProductId;
+            //EditProduct.Description = "adasdasd";
+            //EditProduct.Price = 1657981;
             //await dialogService.ShowMessage("Error", "Producto: " + EditProducts.ProductId + " / " + EditProducts.Description + " / " + EditProducts.Price);
             //OnPropertyChanged("Description");
             //OnPropertyChanged("Price");
 
+            // Trying to make a Edit Products Page... But it doesn't seem like is going to work.
+
             navigationService.Navigate("EditProductsPage");
         }
         #endregion
-        // TODO: Borrame: Al eliminar un producto DEBE verificar que no tenga NADA relacionado. Si tien erelaciones, sacar error, si no, borrarlo
 
         #region Methods
         protected virtual void OnPropertyChanged(string propertyName)
@@ -121,4 +133,13 @@ namespace ServicesMVVM.ViewModels
         }
         #endregion
     }
+
+    /*
+     <Entry
+        TextColor="{StaticResource FontColor}"
+        Text="{Binding ProductId, Mode=TwoWay}"
+        Placeholder="ID del Producto"
+        Keyboard="Numeric"
+        BackgroundColor="{StaticResource BackgroundColor}"/>
+    */
 }

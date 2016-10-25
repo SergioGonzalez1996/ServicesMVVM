@@ -24,7 +24,7 @@
               <Label
                 HorizontalTextAlignment="Start"
                 TextColor="{StaticResource FontColor}"
-                Text="{Binding DateRegistered, StringFormat='{0:yyyy/MM/dd}'}"/>
+                Text="{Binding DateService, StringFormat='{0:yyyy/MM/dd}'}"/>
               <Label
                 FontAttributes="Bold"
                 FontSize="16"

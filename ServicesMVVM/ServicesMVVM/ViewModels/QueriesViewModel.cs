@@ -51,9 +51,9 @@ namespace ServicesMVVM.ViewModels
             using (var da = new DataAccess())
             {
                 var services = da.GetList<Service>(true)
-                                   .Where(s => s.DateRegistered.Year == DateQuery.Year &&
-                                    s.DateRegistered.Month == DateQuery.Month &&
-                                    s.DateRegistered.Day == DateQuery.Day)
+                                   .Where(s => s.DateService.Year == DateQuery.Year &&
+                                    s.DateService.Month == DateQuery.Month &&
+                                    s.DateService.Day == DateQuery.Day)
                                     .OrderByDescending(s => s.DateService)
                                     .ToList();
                 Queries.Clear();

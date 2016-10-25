@@ -2,7 +2,9 @@
 using ServicesMVVM.Models;
 using ServicesMVVM.Services;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace ServicesMVVM.ViewModels
@@ -16,6 +18,8 @@ namespace ServicesMVVM.ViewModels
 
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public IEnumerable<Product> AllProducts { get; }
 
         public int ServiceId { get; set; }
 
@@ -41,7 +45,16 @@ namespace ServicesMVVM.ViewModels
             dialogService = new DialogService();
             DateRegistered = DateTime.Today; // Always will be Today
             DateService = DateTime.Today; // The view date picker
-            OnPropertyChanged("Quantity");
+            var list = new List<Product>();
+            using (var da = new DataAccess())
+            {
+                var products = da.GetList<Product>(false).OrderBy(p => p.Description);
+                foreach (var product in products)
+                {
+                    list.Add(new Product { Description = product.Description, ProductId = product.ProductId });
+                }
+            }
+            this.AllProducts = list;
         }
         #endregion
 
@@ -98,6 +111,7 @@ namespace ServicesMVVM.ViewModels
         }
 
         public ICommand EditCommand { get { return new RelayCommand(Edit); } }
+
         private void Edit()
         {
             navigationService.Navigate("EditServicesPage");
