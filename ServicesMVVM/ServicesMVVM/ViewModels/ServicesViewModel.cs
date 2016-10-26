@@ -4,7 +4,6 @@ using ServicesMVVM.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -17,9 +16,11 @@ namespace ServicesMVVM.ViewModels
         private NavigationService navigationService;
         #endregion
 
-        #region Properties
+        #region Events
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Properties
         public IEnumerable<Product> AllProducts { get; }
 
         public int ServiceId { get; set; }
@@ -32,13 +33,11 @@ namespace ServicesMVVM.ViewModels
 
         public string ProductDescription { get; set; }
 
-        //public double Quantity { get; set; }
-
         public decimal Price { get; set; }
 
         public decimal Value { get { return Price * (decimal)Quantity; } }
 
-        double quantity;
+        private double quantity { get; set; }
 
         public double Quantity
         {
@@ -47,14 +46,18 @@ namespace ServicesMVVM.ViewModels
                 if (quantity != value)
                 {
                     quantity = value;
-                    OnPropertyChanged("Quantity");
-                }
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("Quantity"));
+                    }
+                } 
             }
             get
             {
                 return quantity;
             }
         }
+
         #endregion
 
         #region Constructors
@@ -64,6 +67,8 @@ namespace ServicesMVVM.ViewModels
             dialogService = new DialogService();
             DateRegistered = DateTime.Today; // Always will be Today
             DateService = DateTime.Today; // The view date picker
+            Quantity = 1;
+            quantity = 1;
             var list = new List<Product>();
             using (var da = new DataAccess())
             {
@@ -83,7 +88,7 @@ namespace ServicesMVVM.ViewModels
         {
             try
             {
-                if (Quantity < 1)
+                if (Quantity < 1 || quantity < 1 )
                 {
                     await dialogService.ShowMessage("Error", "Debes ingresar una cantidad positiva mayor que 0.");
                     return;
@@ -131,13 +136,9 @@ namespace ServicesMVVM.ViewModels
         #endregion
 
         #region Methods
-        protected virtual void OnPropertyChanged(string propertyName)
+        public void UpdateQuantity(object sender, int value)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this,
-                    new PropertyChangedEventArgs(propertyName));
-            }
+            Quantity = value;
         }
         #endregion
     }

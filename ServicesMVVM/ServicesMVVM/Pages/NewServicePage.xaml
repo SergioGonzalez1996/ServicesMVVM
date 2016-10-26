@@ -27,21 +27,22 @@
           HorizontalOptions="StartAndExpand"
           Text="Cantidad"/>
         <Entry
+          IsEnabled="False"
           TextColor="{StaticResource FontColor}"
           Text="{Binding Quantity, Mode=TwoWay}"
           Keyboard="Numeric"
           Placeholder="Ingresa la Cantidad"
           HorizontalOptions="FillAndExpand"
           BackgroundColor="{StaticResource BackgroundColor}"/>
-        <Stepper>
-          Value="{Binding Quantity, Mode=TwoWay}"
+        <Stepper
+          Value="{Binding Quantity}"
           Increment="1"
           Minimum="1"
           Maximum="999999"
           HorizontalOptions="End"
           VerticalOptions="Center"
           BackgroundColor="{StaticResource BackgroundColor}"
-        </Stepper>
+          ValueChanged="OnQuantityChanged"/>
       </StackLayout>
       <Label
         TextColor="{StaticResource FontColor}"
