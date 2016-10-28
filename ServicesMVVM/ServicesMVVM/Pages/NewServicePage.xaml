@@ -20,12 +20,11 @@
                             SelectedValuePath="ProductId"
                             ItemsSource="{Binding AllProducts}"
                             SelectedValue="{Binding Path=Product.ProductId, Mode=TwoWay}" />
-      
-      <StackLayout Orientation="Horizontal"> 
-        <Label
+      <Label
           TextColor="{StaticResource FontColor}"
           HorizontalOptions="StartAndExpand"
-          Text="Cantidad"/>
+          Text="Cantidad vendida:"/>
+      <StackLayout Orientation="Horizontal"> 
         <Entry
           IsEnabled="False"
           TextColor="{StaticResource FontColor}"
@@ -46,7 +45,7 @@
       </StackLayout>
       <Label
         TextColor="{StaticResource FontColor}"
-        Text="Fecha"/>
+        Text="Fecha:"/>
       <DatePicker
         Date="{Binding DateService, Mode=TwoWay}"
         BackgroundColor="{StaticResource BackgroundColor}">

@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace ServicesMVVM.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel 
     {
         #region Attributes
         private NavigationService navigationService;
@@ -21,7 +21,6 @@ namespace ServicesMVVM.ViewModels
         public ProductsViewModel NewProduct { get; private set; }
         public ServicesViewModel NewService { get; private set; }
         public QueriesViewModel NewQuery { get; private set; }
-        //public ProductsViewModel EditProduct { get; private set; }
         #endregion
 
         #region Constructors
@@ -129,7 +128,7 @@ namespace ServicesMVVM.ViewModels
         #endregion
 
 
-        public void ReloadList()
+        public void ReloadList() // Test
         {
             LoadServices();
             LoadProducts();

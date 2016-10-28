@@ -15,9 +15,11 @@ namespace ServicesMVVM.ViewModels
         private NavigationService navigationService;
         #endregion
 
-        #region Properties
+        #region Events
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Properties
         //public ProductsViewModel EditProduct { get; private set; }
 
         public int ProductId { get; set; }
@@ -53,9 +55,9 @@ namespace ServicesMVVM.ViewModels
                     await dialogService.ShowMessage("Error", "Debes ingresar un precio positivo.");
                     return;
                 }
-                using (var daa = new DataAccess())
+                /*using (var daa = new DataAccess())
                 {
-                    /*
+                    
                      // I'm getting a error on Where, I don't know how to fix it, need help
                     var checkDescription = daa.First<Product>(false).Where(p => p.Description == Description); // Adding a .FirstOrDefault(); doesn't work
                     if (checkDescription != null)
@@ -63,8 +65,8 @@ namespace ServicesMVVM.ViewModels
                         await dialogService.ShowMessage("Error", "Ya hay existe producto con descripción " + Description + ".");
                         return;
                     }
-                    */ 
-                }
+                    
+                }*/
 
                 var product = new Product
                 {
@@ -122,11 +124,7 @@ namespace ServicesMVVM.ViewModels
         #region Methods
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this,
-                    new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

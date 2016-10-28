@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using ServicesMVVM.ViewModels;
+using System.Diagnostics;
 
 namespace ServicesMVVM.Pages
 {

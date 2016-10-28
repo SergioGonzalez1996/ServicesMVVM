@@ -102,6 +102,7 @@ namespace ServicesMVVM.ViewModels
                         await dialogService.ShowMessage("Error", "El Producto ID " + ProductId + " no existe.");
                         return;
                     }
+                    Price = thisProduct.Price;
                 }
 
                 var service = new Service

@@ -4,7 +4,7 @@
              x:Class="ServicesMVVM.Pages.EditProductsPage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="Editar un Producto"
-             BindingContext="{Binding Products, Source={StaticResource Locator}}">
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
   <ScrollView BindingContext="{Binding EditProduct}">
     <StackLayout Padding="8">

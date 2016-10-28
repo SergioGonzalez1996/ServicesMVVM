@@ -13,8 +13,6 @@ namespace ServicesMVVM.ViewModels
         #region Properties
         public ObservableCollection<QueriesViewModel> Queries { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public decimal Total { get; set; }
 
         public DateTime DateQuery { get; set; }
@@ -34,6 +32,10 @@ namespace ServicesMVVM.ViewModels
         public decimal Price { get; set; }
 
         public decimal Value { get { return Price * (decimal)Quantity; } }
+        #endregion
+
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged; 
         #endregion
 
         #region Constructors
@@ -74,7 +76,8 @@ namespace ServicesMVVM.ViewModels
                         DateRegistered = service.DateRegistered,
                     });
                 }
-                OnPropertyChanged("Total");
+                //Total = services.Sum(s => s.Value); // 3. Doesn't works... neither...
+                OnPropertyChanged("Total"); 
             }
         }
         #endregion
@@ -82,11 +85,7 @@ namespace ServicesMVVM.ViewModels
         #region Methods
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this,
-                    new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this,   new PropertyChangedEventArgs(propertyName));
         } 
         #endregion
     }
